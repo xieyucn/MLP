@@ -23,3 +23,14 @@ tf.random.set_seed(22)
 train_data, val_data, test_data = tfds.load("mnist",
                                             split=['train[10000:]', 'train[0:10000]', 'test'],
                                             batch_size=128, as_supervised=True)
+
+x_viz, y_viz = tfds.load("mnist", split=['train[:1500]'], batch_size=-1, as_supervised=True)[0]
+x_viz = tf.squeeze(x_viz, axis=3)
+
+for i in range(9):
+    plt.subplot(3,3,1+i)
+    plt.axis('off')
+    plt.imshow(x_viz[i], cmap='gray')
+    plt.title(f"True Label: {y_viz[i]}")
+    plt.subplots_adjust(hspace=.5)
+plt.show()
